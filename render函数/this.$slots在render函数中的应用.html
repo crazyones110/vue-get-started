@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>this.$slots在render函数中的应用</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        body{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #app{
+            height: 300px;
+            width: 900px;
+            border: 2px solid red;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <son-component>
+            <div>离离原上草</div>
+            <div>一岁一枯荣</div>
+            <h1 slot="header">我是h1标题</h1>
+            <h5 slot="footer">我是尾注</h5>
+        </son-component>
+    </div>
+    <script>
+        let app = new Vue({
+            el: "#app",
+            components:{
+                sonComponent:{
+                    render(createElement){
+                        let header = this.$slots.header
+                        let main = this.$slots.default
+                        let footer = this.$slots.footer
+                        return createElement("div",[
+                            createElement('header', {class:["header"],attrs:{id:"header"}}, header),
+                            createElement('main', {class:["main"]}, main),
+                            createElement('footer', {class:["footer"]},footer)
+                        ])
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>

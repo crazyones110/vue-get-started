@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>在render函数中使用props传递数据</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        body{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #app{
+            height: 300px;
+            width: 900px;
+            border: 2px solid red;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <button @click="switchShow">点击切换子组件内容</button>
+        <son-component :show="show">
+        </son-component>
+    </div>
+    <script>
+        let app = new Vue({
+            el: "#app",
+            data:{
+                show: true
+            },
+            methods: {
+                switchShow(){
+                    this.show = !this.show
+                }
+            },
+            components:{
+                sonComponent:{
+                    props: ['show'],
+                    render(createElement){
+                        // return createElement("div", String(this.show))
+                        return createElement("div", {
+                            style:{
+                                color: "red",
+                                textAlign: "center" 
+                            }
+                        }, this.show)
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>

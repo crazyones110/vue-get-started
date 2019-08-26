@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>render函数的第二个参数</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        body{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #app{
+            height: 300px;
+            width: 900px;
+            border: 2px solid red;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <son-component></son-component>
+    </div>
+    <script>
+        let app = new Vue({
+            el: "#app",
+            components:{
+                sonComponent:{
+                    render(createElement){
+                        // 第一个参数为字符串
+                        return createElement("div"
+                        , {
+                            "class": ["foo", "bar"],
+                            style:{
+                                color: "blue",
+                                fontSize: "20px"
+                            },
+                            // domProps:{
+                            //     innerHTML: "<span>我是蓝色</span>"
+                            //     // innerHTML: this.msg
+                            // },
+                            attrs:{
+                                id: "foo",
+                                ref: "http://baidu.com"
+                            }
+                        },[
+                            createElement("h1", "I am an h1 heading"),
+                            createElement("h5", "I am an h5 heading")
+                        ])
+                    },
+                    data(){
+                        msg: "我是一个组件"
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>

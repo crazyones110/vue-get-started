@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>render函数的第一个参数</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        body{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #app{
+            height: 300px;
+            width: 900px;
+            border: 2px solid red;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <son-component></son-component>
+    </div>
+    <script>
+        let app = new Vue({
+            el: "#app",
+            components:{
+                sonComponent:{
+                    render(createElement){
+                        //第一个参数为字符串
+                        // return createElement("h1")
+                        //第一个参数为对象
+                        // return createElement({
+                        //     template: "<div>第一个参数为对象</div>"
+                        // })
+                        //第一个参数为函数
+                        let domFun = () =>{
+                            return {
+                                template: "<div>第一个参数为对象</div>"
+                            }
+                        }
+                        return createElement(domFun())
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>
