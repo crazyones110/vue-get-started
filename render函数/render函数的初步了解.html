@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>homework</title>
+    <title>render函数的初步了解</title>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <style>
         body{
@@ -22,28 +22,22 @@
 <body>
     <div id="app">
         <child-component :level="level">
-            我是蜡笔小新
+            龙的传人
         </child-component>
     </div>
-    <template id="component">
-        <h1 v-if="level===1">
-            <slot></slot>
-        </h3>
-        <h2 v-else-if="level===2"><slot></slot></h3>
-        <h3 v-else-if="level===3"><slot></slot></h3>
-        <h4 v-else><slot></slot></h4>
-    </template>
     <script>
         let app = new Vue({
             el: "#app",
             data:{
-                msg: "我只是一条单纯的消息",
                 level: 1
             },
             components:{
                 childComponent:{
-                    template: "#component",
                     props: ['level'],
+                    render(createElement){
+                        return createElement('h'+this.level,
+                        this.$slots.default)
+                    }
                 }
             }
         })
