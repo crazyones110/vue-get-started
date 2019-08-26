@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>homework</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        body{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #app{
+            height: 300px;
+            width: 900px;
+            border: 2px solid red;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-focus>
+        <div v-test:cuihua.a.b.c="msg"></div>
+    </div>
+    <script>
+        // Vue.directive("focus",{
+        //     inserted:function(el){
+        //         el.focus()
+        //     }
+        // })
+        let app = new Vue({
+            el: "#app",
+            data:{
+                msg: "我只是一条单纯的消息"
+            },
+            directives:{
+                focus:{
+                    inserted(el){
+                        el.focus()
+                    },
+                },
+                test:{
+                    bind(el, binding, vnode){
+                        let keys = []
+                        for(key in vnode){
+                            keys.push(key)
+                        }
+                        el.innerHTML = `
+                        name: ------- ${binding.name} <br>
+                        value: ------- ${binding.value} <br>
+                        expression: ------- ${binding.expression} <br>
+                        arg: ------- ${binding.arg} <br>
+                        modifiers: ------- ${JSON.stringify(binding.modifiers)} <br>
+                        vnode中的keys: ------- ${keys.join("--")} <br>
+                        `
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>
