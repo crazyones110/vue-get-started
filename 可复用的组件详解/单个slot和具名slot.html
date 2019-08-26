@@ -22,33 +22,43 @@
 <body>
     <div id="app">
         <child-component>
-            <div class="header" slot="header"><h3>{{header}}</h3></div>
-            <div class="content"><p>{{content}}</p></div>
-            <div class="footer" slot="footer"><p>{{footer}}</p></div>
+            <p>{{msg}}</p>
         </child-component>
+        <hr>
+        <name-component>
+            <h3 slot="header">我是标题</h3>
+            <p>我是段落1</p>
+            <p>我是段落2</p>
+            <p slot="footer">我是尾注</p>
+        </name-component>
     </div>
     <script>
         let app = new Vue({
             el: "#app",
             data:{
-                header: "我是标题",
-                content: "我是内容",
-                footer: "我是尾部"
-                
+                msg: "我是父组件插入的内容"
             },
             components:{
                 childComponent:{
-                    template:`
-                    <div>
-                        <slot name="header"></slot>
-                        <slot></slot>
-                        <slot name="footer"></slot>
-                    </div>
-                    `,
-
+                    template: `<div>
+                                <slot>如果父组件中没有插入内容，我就作为默认出现</slot>
+                            </div>`
+                },
+                nameComponent:{
+                    template: `<div>
+                            <div>
+                                <slot name="header"></slot>
+                            </div>
+                            <div>
+                                <slot></slot>
+                            </div>
+                            <div>
+                                <slot name="footer"></slot>
+                            </div>
+                        </div>`
                 }
             }
-        })    
+        })
     </script>
 </body>
 </html>
