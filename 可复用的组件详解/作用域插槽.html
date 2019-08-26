@@ -22,13 +22,11 @@
 <body>
     <div id="app">
         <son-component>
-            <h3 slot="header">我是标题</h3>
-            <p>我是内容1</p>
-            <p>我是内容2</p>
-            <p slot="footer">我是结尾</p>
-        </son-component>
+            <p slot="xxx" slot-scope="props">
+                {{props.msg}}
+            </p>
+        </son-component>    
     </div>
-    
     <script>
         let app = new Vue({
             el: "#app",
@@ -37,11 +35,9 @@
             },
             components:{
                 sonComponent:{
-                    template:`<div>                        
-                                <div class="header" ><slot name="header"></slot></div>
-                                <div class="content"><slot></slot></div>
-                                <div class="footer" ><slot name="footer"></slot></div>
-                            </div>`,
+                    template:`<div>
+                        <slot name="xxx" msg="我是子组件中通过作用域插槽传来的消息"></slot>
+                    </div>`
                 }
             }
         })
