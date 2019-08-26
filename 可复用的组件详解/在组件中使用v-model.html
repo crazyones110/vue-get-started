@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>在组件中使用v-model</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        body{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #app{
+            height: 300px;
+            width: 900px;
+            border: 2px solid red;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        您当前的余额为{{total}}
+        <son-component :total="total" v-model="total"></son-component>
+    </div>
+    <script>
+        let app = new Vue({
+            el: "#app",
+            data:{
+                total: 1000
+            },
+            components:{
+                sonComponent:{
+                    template:`
+                    <div>
+                        <button @click="handleIncrease">+1000</button>
+                        <button @click="handleReduce">-1000</button>
+                    </div>
+                    `,
+                    props: ['total'],
+                    data(){
+                        return {
+                            count : this.total 
+                        }
+                    },
+                    methods: {
+                        handleIncrease(){
+                            this.count += 1000
+                            this.$emit("input", this.count)
+                        },
+                        handleReduce(){
+                            this.count -= 1000
+                            this.$emit("input", this.count)
+                        }
+                    },
+                }
+            }
+        })
+    </script>
+</body>
+</html>

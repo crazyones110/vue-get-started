@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>数据验证</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        body{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #app{
+            height: 300px;
+            width: 900px;
+            border: 2px solid red;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <app-component :a="a" :b="b" :d="d" :f="f"></app-component>
+    </div>
+    <script>
+        let app = new Vue({
+            el: "#app",
+            data:{
+                a: 2,
+                b: [1, 2],
+                c: true,
+                d: 10,
+                e:function(){console.log(1)},
+                f: 333
+            },
+            components:{
+                appComponent:{
+                    template: "<div>{{a}}---{{b}}---{{c}}---{{d}}---{{e}}---{{f}}</div>",
+                    props:{
+                        a: Number,
+                        b: {
+                            type: Array,
+                            required: true
+                        },
+                        c: {
+                            type: Boolean,
+                            default: true
+                        },
+                        d: {
+                            type: Number,
+                            validator(value){
+                                return value >= 10
+                            }
+                        },
+                        e: Function,
+                        f: {
+                            type: [Number, String],
+                            default: 2222
+                        }
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>

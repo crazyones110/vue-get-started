@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>非父组件之间的通信</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        body{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #app{
+            height: 300px;
+            width: 900px;
+            border: 2px solid red;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        您当前的余额为{{total}}
+        <son-component ></son-component>
+    </div>
+    <script>
+        let app = new Vue({
+            el: "#app",
+            data:{
+                total: 1000
+            },
+            methods:{
+                handleTotal(value){
+                    this.total = value
+                }
+            },
+            components:{
+                sonComponent:{
+                    template:`
+                    <div>
+                        <button @click="handle">通过点击我修改父亲的数据</button>
+                    </div>
+                    `,
+                    methods:{
+                        handle(){
+                            this.$parent.total += 1000
+                        }
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>
