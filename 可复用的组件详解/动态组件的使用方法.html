@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>动态组件的使用方法</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        body{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #app{
+            height: 300px;
+            width: 900px;
+            border: 2px solid red;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <component :is="component"></component>
+        <button @click="handleView('A')">第1句</button>
+        <button @click="handleView('B')">第2句</button>
+        <button @click="handleView('C')">第3句</button>
+        <button @click="handleView('D')">第4句</button>
+    </div>
+    <script>
+        let app = new Vue({
+            el: "#app",
+            data:{
+                component: "compA"
+            },
+            methods:{
+                handleView(tag){
+                    this.component = "comp" + tag
+                }
+            },
+            components:{
+                compA:{
+                    template: "<div>锄禾日当午</div>"
+                },
+                compB:{
+                    template: "<div>汗滴禾下土</div>"
+                },
+                compC:{
+                    template: "<div>谁知盘中餐</div>"
+                },
+                compD:{
+                    template: "<div>粒粒皆辛苦</div>"
+                },
+            }
+        })
+    </script>
+</body>
+</html>
