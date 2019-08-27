@@ -47,6 +47,9 @@
                             text: "我是子组件的插槽传递过来的消息",
                             msg: "scopedMsg"
                         }))
+                        //相当于template:`<div>
+                        //     <slot text: "我是子组件的插槽传递过来的消息"></slot>
+                        // </div>`
                         return createElement('div', this.$scopedSlots.default({
                             text: "我是子组件的插槽传递过来的消息",
                             msg: "scopedMsg"
