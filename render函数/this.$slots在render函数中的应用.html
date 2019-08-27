@@ -22,9 +22,9 @@
 <body>
     <div id="app">
         <son-component>
-            <div>离离原上草</div>
-            <div>一岁一枯荣</div>
-            <h1 slot="header">我是h1标题</h1>
+            <p>我是段落1</p>
+            <p>我是段落2</p>
+            <h1 slot="header">我是标题</h1>
             <h5 slot="footer">我是尾注</h5>
         </son-component>
     </div>
@@ -32,15 +32,12 @@
         let app = new Vue({
             el: "#app",
             components:{
-                sonComponent:{
+                "son-component":{
                     render(createElement){
-                        let header = this.$slots.header
-                        let main = this.$slots.default
-                        let footer = this.$slots.footer
                         return createElement("div",[
-                            createElement('header', {class:["header"],attrs:{id:"header"}}, header),
-                            createElement('main', {class:["main"]}, main),
-                            createElement('footer', {class:["footer"]},footer)
+                            createElement("header", this.$slots.header),
+                            createElement("main", this.$slots.default),
+                            createElement("footer", this.$slots.footer)
                         ])
                     }
                 }
